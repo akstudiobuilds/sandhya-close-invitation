@@ -56,8 +56,7 @@
       </div>
       <p class="hd-where rv" style="--d:1.85s">${bigClock.time} ${bigClock.ap} · ${esc(I.places[mainEvent.place].name)}, ${esc(I.city)}</p>
       <div class="hero-stage">
-        <div class="hero-sun"></div>
-        <button class="hero-couple" id="heroCouple" type="button" aria-label="Make them hop"><img src="images/couple-wedding.webp" alt="${esc(I.groom)} and ${esc(I.bride)}, drawn in their wedding clothes" width="1000" height="1118"></button>
+        <div class="hero-photo"><img src="images/couple-photo.webp" alt="${esc(I.groom)} and ${esc(I.bride)} sitting close together, laughing" width="1000" height="1500" fetchpriority="high"></div>
       </div>
     </section>
 
@@ -100,8 +99,8 @@
   $('#pocket').style.clipPath = clipOf(POCKET);
 
   /* ---------------------------------------- the love */
-  // Hearts only. One soft stream floats up out of the envelope, only after the tap.
-  const LOVE = ['❤️', '💕', '💖', '💗', '💓', '💞', '❤️', '💖'];
+  // White and red hearts only. One soft stream floats up out of the envelope, only after the tap.
+  const LOVE = ['🤍', '❤️', '🤍', '🤍', '❤️', '🤍'];
   const canvas = $('#confetti'), ctx = canvas.getContext('2d');
   const SPRITE = 72;
   // Emojis are slow to draw as text, so each is painted once and reused as an image.
@@ -162,7 +161,7 @@
   const reveal = () => {
     document.body.classList.remove('sealed');
     sheet.inert = false; stage.remove();
-    $('#themeColor').content = '#a8124b';
+    $('#themeColor').content = '#2e2e2e';
     scrollTo(0, 0); arm();
     $('#names').focus({ preventScroll: true });
     floodRate = 0; bits = []; // nothing floats over the letter
@@ -215,8 +214,6 @@
   /* ---------------------------------------- little games */
   sheet.addEventListener('click', e => {
     if (e.target.closest('#and')) { const a = $('#and'); a.classList.remove('spin'); void a.offsetWidth; a.classList.add('spin'); return; }
-    const hop = e.target.closest('#heroCouple');
-    if (hop) { hop.classList.remove('hop'); void hop.offsetWidth; hop.classList.add('hop'); }
   });
 
   /* ---------------------------------------- countdown */

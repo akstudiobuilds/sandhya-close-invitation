@@ -21,7 +21,7 @@ Everything is in `images/`, already cut out and sized.
 
 | File | Where it shows |
 | --- | --- |
-| `couple-wedding.webp` | Top of the letter |
+| `couple-photo.webp` | Top of the letter |
 
 ## Publish
 
