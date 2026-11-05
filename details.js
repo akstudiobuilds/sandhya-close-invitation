@@ -34,7 +34,7 @@ window.INVITE = {
     hint: 'Tap the seal',
     salutation: 'With love, we invite you to the wedding celebrations of',
     letterHello: 'With love,', // on the letter as it slides out of the envelope
-    letter: 'You already knew. You probably helped. The big invitation went out to everyone, but this one is just for the people we want beside us from the first pinch of turmeric to the very last prasadam.',
+    letter: 'You already knew. You probably helped. The big invitation went out to everyone, but this one is just for the people we want beside us from the first pinch of turmeric to the prasadam.',
     scheduleTitle: 'Mark your calendars',
     closingTitle: 'See you on the 16th.',
     signoff: 'With all our love,',
