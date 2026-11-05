@@ -24,6 +24,7 @@
       <p class="telugu a" style="--o:2">${esc(e.telugu)}</p>
       <span class="ev-rule a" style="--o:3" aria-hidden="true">${heart}</span>
       ${e.line ? `<p class="ev-line a" style="--o:3">${esc(e.line)}</p>` : ''}
+      ${e.dress ? `<div class="ev-dress a" style="--o:3">${e.dress.map(([who, what]) => `<p><b>${esc(who)}</b>${esc(what)}</p>`).join('')}</div>` : ''}
       <p class="ev-when a" style="--o:4"><span class="ev-time">${c.time}<small>${c.ap}</small></span>${e.note ? `<span class="ev-note">${esc(e.note)}</span>` : ''}</p>
       <a class="ev-map a" style="--o:5" href="${esc(pl.map)}" target="_blank" rel="noreferrer">
         <span class="ev-pin">${pin}</span>
