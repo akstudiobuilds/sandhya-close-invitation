@@ -24,12 +24,12 @@ window.INVITE = {
   // In date order. Time is 24-hour, India time. Each event shows the map for its own place.
   events: [
     { date: '2026-11-16', time: '10:00', title: 'Pasupu Muhurtham', telugu: 'పసుపు ముహూర్తం', place: 'groom', note: 'Lunch follows', line: 'The first yellow of the wedding.' },
-    { date: '2026-11-17', time: '09:30', title: 'Pochamma Panduga', telugu: 'పోచమ్మ పండుగ', place: 'groom', note: 'Breakfast & lunch follow', },
-    { date: '2026-11-18', time: '11:00', title: 'Haldi & Mehandi', telugu: 'హల్దీ & మెహందీ', place: 'arden', note: 'Lunch & dinner follow', dress: [['Haldi', 'Shades of Sunshine, wear your brightest yellows'], ['Mehandi', 'Tropical Brights, think bold colours and florals']] },
-    { date: '2026-11-19', time: '10:00', title: 'Pellikoduku & Pooja', telugu: 'పెళ్లికొడుకు & పూజ', place: 'groom', note: 'Breakfast & lunch follow', line: 'Vamshi officially becomes the groom. Bring your camera.' },
-    { date: '2026-11-21', time: '10:04', title: 'The Marriage', telugu: 'సుముహూర్తం', place: 'kbr', main: true, note: '', line: '10:04 sharp. The muhurtham won’t wait for parking.' },
-    { date: '2026-11-22', time: '11:30', title: 'Satyanarayan Katha', telugu: 'సత్యనారాయణ కథ', place: 'groom', note: 'Lunch follows', line: 'At the groom’s home, first.' },
-    { date: '2026-11-23', time: '11:30', title: 'Satyanarayan Katha', telugu: 'సత్యనారాయణ కథ', place: 'bride', note: 'Lunch follows', line: 'Then the bride’s side takes its turn.' },
+    { date: '2026-11-17', time: '09:30', title: 'Pochamma Panduga', telugu: 'పోచమ్మ పండుగ', place: 'groom', note: 'Breakfast & lunch follows', },
+    { date: '2026-11-18', time: '11:00', title: 'Haldi & Mehandi', telugu: 'హల్దీ & మెహందీ', place: 'arden', note: 'Lunch & dinner follows', dress: [['Haldi', 'Shades of Sunshine, wear your brightest yellows'], ['Mehandi', 'Tropical Brights, think bold colours and florals']] },
+    { date: '2026-11-19', time: '10:00', title: 'Pellikoduku & Pooja', telugu: 'పెళ్లికొడుకు & పూజ', place: 'groom', note: 'Breakfast & lunch follows', line: 'Vamshi officially becomes the groom. Bring your camera.' },
+    { date: '2026-11-21', time: '10:04', title: 'The Marriage', telugu: 'సుముహూర్తం', place: 'kbr', main: true, note: '', line: '10:04 sharp. The muhurtham won’t wait for parking.', wear: 'Let’s celebrate in traditional hues' },
+    { date: '2026-11-22', time: '11:30', title: 'Satyanarayana Katha', telugu: 'సత్యనారాయణ కథ', place: 'groom', note: 'Lunch follows', line: 'At the groom’s home, first.' },
+    { date: '2026-11-23', time: '11:30', title: 'Satyanarayana Katha', telugu: 'సత్యనారాయణ కథ', place: 'bride', note: 'Lunch follows', line: 'Then the bride’s side takes its turn.' },
   ],
 
   text: {
