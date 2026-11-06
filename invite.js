@@ -82,7 +82,7 @@
       <p class="sign-names rv">${amp(I.shortNames)}</p>
       <button class="reseal rv" id="reseal" type="button">Seal it up and open it again</button>
     </section>
-    ${I.music ? `<audio id="song" src="${esc(I.music)}" loop preload="auto"></audio><button class="music" id="musicBtn" type="button" aria-pressed="false" aria-label="Music">
+    ${I.music ? `<audio id="song" src="${esc(I.music)}" preload="auto"></audio><button class="music" id="musicBtn" type="button" aria-pressed="false" aria-label="Music">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.800" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V6l11-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></button>` : ''}`;
 
   /* ---------------------------------------- envelope copy and seal */
@@ -156,6 +156,59 @@
     document.querySelectorAll('.slide, .thread').forEach(el => arrive.observe(el));
   };
 
+  /* ---------------------------------------- music */
+  const song = $('#song'), musicBtn = $('#musicBtn');
+  let musicOn = false;
+  const showMusic = on => { musicOn = on; if (musicBtn) musicBtn.setAttribute('aria-pressed', String(on)); };
+  const fadeTo = (target, ms) => {
+    if (!song) return;
+    const from = song.volume, t0 = performance.now();
+    const step = t => { const k = Math.max(0, Math.min(1, (t - t0) / ms)); song.volume = Math.max(0, Math.min(1, from + (target - from) * k)); if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  };
+  // The song begins partway in, and loops back to that same moment rather than the start.
+  const FROM = +I.musicStart || 0;
+  const cue = () => { if (song.readyState >= 1) song.currentTime = FROM; else song.addEventListener('loadedmetadata', () => { song.currentTime = FROM; }, { once: true }); };
+  if (song) song.addEventListener('ended', () => { song.currentTime = FROM; song.play().catch(() => {}); });
+  const startMusic = () => {
+    if (!song) return;
+    cue();
+    song.volume = 0;
+    song.play().then(() => { showMusic(true); fadeTo(.6, 2500); }).catch(() => showMusic(false));
+  };
+  if (musicBtn) musicBtn.addEventListener('click', () => {
+    if (musicOn) { song.pause(); showMusic(false); }
+    else { song.volume = .6; song.play().then(() => showMusic(true)).catch(() => {}); }
+  });
+  // quiet while the guest is in another app or tab, and back when they return
+  document.addEventListener('visibilitychange', () => {
+    if (!song || !musicOn) return;
+    if (document.hidden) song.pause(); else song.play().catch(() => {});
+  });
+
+  /* ---------------------------------------- slow drift down the letter */
+  // Starts once the names have written themselves in, and stops for good at the first touch.
+  const startDrift = () => {
+    const speed = +I.autoScroll || 0;
+    if (!speed || calm) return;
+    let frame = 0, last = 0, y = 0, stopped = false;
+    const stop = () => {
+      stopped = true; cancelAnimationFrame(frame); clearTimeout(begin);
+      ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(n => removeEventListener(n, stop));
+    };
+    ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(n => addEventListener(n, stop, { passive: true }));
+    const step = t => {
+      if (stopped) return;
+      if (last) {
+        y += speed * Math.min(t - last, 100) / 1000;
+        scrollTo(0, y);
+        if (y >= document.documentElement.scrollHeight - innerHeight - 1) { stop(); return; }
+      }
+      last = t; frame = requestAnimationFrame(step);
+    };
+    const begin = setTimeout(() => { y = scrollY; frame = requestAnimationFrame(step); }, 2600);
+  };
+
   /* ---------------------------------------- the opening sequence */
   const stage = $('#stage'), scene = $('#scene'), seal = $('#seal'), flap = $('#flap'), letter = $('#letter'), sheet = $('#sheet');
   sheet.inert = true;
@@ -166,12 +219,12 @@
     scrollTo(0, 0); arm();
     $('#names').focus({ preventScroll: true });
     floodRate = 0; bits = []; // nothing floats over the letter
-    const song = $('#song'); if (song) { song.volume = .6; song.play().then(() => $('#musicBtn').setAttribute('aria-pressed', 'true')).catch(() => {}); }
+    startDrift();
   };
   let opening = false;
   const open = async () => {
     if (opening) return; opening = true;
-    const song = $('#song'); if (song) song.load();
+    startMusic();
     if (calm) { reveal(); return; }
     navigator.vibrate?.(18);
     flood(42);
@@ -231,10 +284,4 @@
 
   $('#reseal').addEventListener('click', () => { history.replaceState(null, '', location.pathname); location.reload(); });
 
-  const musicBtn = $('#musicBtn');
-  if (musicBtn) musicBtn.addEventListener('click', () => {
-    const song = $('#song'), on = musicBtn.getAttribute('aria-pressed') === 'true';
-    if (on) song.pause(); else song.play();
-    musicBtn.setAttribute('aria-pressed', String(!on));
-  });
 })();

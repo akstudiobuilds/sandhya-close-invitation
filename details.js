@@ -8,7 +8,11 @@ window.INVITE = {
   muhurtham: '2026-11-21T10:04:00+05:30', // drives the countdown
 
   // Optional background song. Put the file in this folder, e.g. './song.mp3'. Blank hides the music button.
-  music: '',
+  music: 'song.mp3',
+  musicStart: 44, // seconds into the song where it begins, and where it loops back to
+  // After the letter opens, the page drifts down by itself at this many pixels a second. 0 turns it off.
+  // It stops for good the moment a guest touches, scrolls or taps.
+  autoScroll: 40,
 
   places: {
     groom: { name: 'Groom’s Home', detail: 'Flat 212', map: 'https://maps.app.goo.gl/fdZjcuTYxNsHtFoV9' },
